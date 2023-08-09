@@ -1,3 +1,4 @@
+import '../styles/styles.css';
 import { useRef, useState, useEffect } from "react";
 import {
   faCheck,
@@ -6,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GoogleButton } from 'react-google-button';
 
 import { db } from "../utils/firebase.config"
@@ -58,7 +59,7 @@ const Register = () => {
 
   const [role, setRole] = useState("customer");
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     userRef.current.focus();
@@ -88,7 +89,7 @@ const Register = () => {
   /////////////////////////
   const addCustomer = async(fName, lName, email, pwd) => {
     try{
-      const customerCollectionRef = collection(db, 'customerCollection');
+      const customerCollectionRef = collection(db, 'CustomerCollection');
       await addDoc(customerCollectionRef, {
         fName,
         lName,
@@ -104,7 +105,7 @@ const Register = () => {
 
   const addDeveloper = async(fName, lName, email, pwd) => {
     try{
-      const developerCollectionRef = collection(db, 'developerCollection');
+      const developerCollectionRef = collection(db, 'DeveloperCollection');
       await addDoc(developerCollectionRef, {
         fName,
         lName,
@@ -155,7 +156,7 @@ const Register = () => {
       setPwd("");
       setMatchPwd("");
 
-      navigate.push('/');
+      
       
     } catch (err) {
       if (!err?.response) {

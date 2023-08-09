@@ -4,7 +4,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
 import { GoogleButton } from 'react-google-button';
+
+
 const LOGIN_URL = '/auth';
+
 
 const Login = () => {
     const { setAuth } = UserAuth();
@@ -77,7 +80,9 @@ const Login = () => {
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username">
+                    Username:
+                </label>
                 <input
                     type="text"
                     id="username"
@@ -100,6 +105,7 @@ const Login = () => {
                 <br />
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                 <GoogleButton onClick={handleGoogleSignIn}/>
+                
                 </div>
             </form>
             <p>
