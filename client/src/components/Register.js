@@ -10,7 +10,7 @@ import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import { GoogleButton } from 'react-google-button';
 
-import { db } from "../utils/firebase.config"
+import { db, auth } from "../utils/firebase.config"
 import {
     collection,
     onSnapshot,
@@ -118,6 +118,20 @@ const Register = () => {
         return false;
     }
   };
+
+  //send Email Verification
+const sendEmailVerification = async (user) =>{
+  if(user) {
+    try{
+      await user.sendEmailVerification();
+      console.log('Verification email sent successfully.');
+    }catch (error) {
+      console.error('Error sending verification email:', error);
+    }
+  }else{
+    console.error('User not found')
+  }
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
@@ -142,8 +156,13 @@ const Register = () => {
 
       if (role === "customer") {
         await addCustomer(fName, lName, email, pwd);
+        const user = auth.currentUser;
+        await sendEmailVerification(user);
+
       } else if (role === "developer") {
         await addDeveloper(fName, lName, email, pwd);
+        const user = auth.currentUser;
+        await sendEmailVerification(user);
       }
      
       // TODO: remove console.logs before deployment
